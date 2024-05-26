@@ -7,24 +7,17 @@ import { AppComponent } from './app.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from'@angular/fire/firestore';
-
-
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  providers: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    ServiceWorkerModule.register('ngsw-worker.js',{
-      enabled: !isDevMode(),registrationStrategy: 'registerWhenStable:30000'
-    })
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
