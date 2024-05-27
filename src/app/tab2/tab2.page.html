@@ -60,7 +60,7 @@
               <ion-button class="iconbutton" (click)="salvar()">
                 <ion-icon slot="icon-only" ios="save" md="save"></ion-icon>
               </ion-button>
-              <ion-button class="iconbutton">
+              <ion-button class="iconbutton" [routerLink]="['/tabs/tab1']" routerDirection="back">
                 <ion-icon slot="icon-only" ios="exit" md="exit"></ion-icon>
               </ion-button>
             </ion-row>
