@@ -9,13 +9,12 @@ import { IEstoque, createIEstoque } from 'src/models/estoque.model';
   styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page {
-  array: any[] = [];
-  itensEstoque: any[] = [];
+  itensEstoque: IEstoque[] = [];
   constructor(
     private EstoqueServ: EstoqueService,
     private navCtrl: NavController
   ) {}
-  
+
   public listarItens() {
     this.EstoqueServ.getAll().subscribe((itensEstoque) => {
       this.itensEstoque = itensEstoque;
@@ -27,14 +26,25 @@ export class Tab1Page {
     this.EstoqueServ.delete(id);
     this.listarItens();
   }
-  
-  public atualizar(id: string){
-    this.EstoqueServ.delete(id);
+
+  public atualizar(id: string) {
     this.navCtrl.navigateRoot('tabs/tab2');
   }
-  public incrementarQuantidade(id: string){
-    this.EstoqueServ.incrementQuant(id);
+
+  public incrementarQuantidade(id: string) {
+    const item = this.itensEstoque.find((item) => item.id === id);
+    item.quantidade = item.quantidade + 1;
+    this.EstoqueServ.update(item);
   }
+
+  public decrementarQuantidade(id: string) {
+    const item = this.itensEstoque.find((item) => item.id === id);
+    if (item.quantidade > 0) {
+      item.quantidade = item.quantidade - 1;
+    }
+    this.EstoqueServ.update(item);
+  }
+
   ionViewWillEnter() {
     this.listarItens();
   }

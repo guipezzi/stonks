@@ -1,7 +1,20 @@
 import { Injectable } from '@angular/core';
 import { IEstoque, createIEstoque } from 'src/models/estoque.model';
-import { Firestore, addDoc, collection, collectionData, query, doc, setDoc, getDocs, deleteDoc, DocumentData, docSnapshots } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import {
+  Firestore,
+  addDoc,
+  collection,
+  collectionData,
+  query,
+  doc,
+  setDoc,
+  getDocs,
+  deleteDoc,
+  DocumentData,
+  docSnapshots,
+  updateDoc,
+} from '@angular/fire/firestore';
+import { Observable, lastValueFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -11,6 +24,7 @@ export class EstoqueService {
   private itens: IEstoque[] = [];
 
   constructor(public firestore: Firestore) {}
+
   public async add(novoItem: IEstoque): Promise<IEstoque> {
     const docRef = await addDoc(
       collection(this.firestore, 'Itens em Estoque'),
@@ -20,7 +34,7 @@ export class EstoqueService {
         tipo: novoItem.tipo,
         quantidade: novoItem.quantidade,
         precoUnit: novoItem.precoUnit,
-        estoqueMinimo: novoItem.estoqueMin,
+        estoqueMin: novoItem.estoqueMin,
       }
     );
 
@@ -39,7 +53,7 @@ export class EstoqueService {
 
   public delete(id: string): number {
     const index = this.getIndex(id);
-    const document = doc(this.firestore, 'Itens em Estoque', id);
+    const document = this.get(id);
     deleteDoc(document);
     if (index >= 0) {
       this.itens.splice(index, 1);
@@ -47,18 +61,8 @@ export class EstoqueService {
     return index;
   }
 
-  get(id: string): Observable<IEstoque> {
-    const document = doc(this.firestore, 'Itens em Estoque', id);
-    return docSnapshots(document).pipe(
-      map((doc) => {
-        const id = doc.id;
-        const data = doc.data();
-        return { id, ...data } as IEstoque;
-      })
-    );
-  }
-  public incrementQuant(id:string): number {
-    
+  public get(id: string) {
+    return doc(this.firestore, 'Itens em Estoque', id);
   }
 
   public getIndex(id: string): number {
@@ -66,5 +70,10 @@ export class EstoqueService {
       return obj.id === id;
     });
     return index;
+  }
+
+  public async update(item: IEstoque) {
+    const itemRef = this.get(item.id);
+    updateDoc(itemRef, { ...item });
   }
 }
