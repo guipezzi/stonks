@@ -28,7 +28,7 @@ export class Tab1Page {
   }
 
   public atualizar(id: string) {
-    this.navCtrl.navigateRoot('tabs/tab2');
+    this.navCtrl.navigateRoot('update-stock');
   }
 
   public incrementarQuantidade(id: string) {

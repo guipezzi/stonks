@@ -33,4 +33,7 @@ export class Tab2Page {
       );
     }
   }
+  public uparImagem() {
+    this.navCtrl.navigateRoot('upload-image');
+  }
 }

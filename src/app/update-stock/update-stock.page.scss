@@ -1,0 +1,50 @@
+ion-toolbar.fancy {
+    --background: #242525;
+    --color: rgb(255, 255, 255);
+  
+    --border-color: #5e5b5b;
+    --border-width: 4px 0;
+    --border-style: double;
+  
+    --min-height: 80px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+    --width: 50%
+  }
+  
+  ion-content .greybg {
+    --background: rgb(167, 166, 166);
+  }
+  
+  ion-content .whitebg {
+    --background: rgb(217, 217, 217);
+    --color: black;
+  }
+  
+  b {
+    font-size: 11px;
+  }
+  
+  ion-icon {
+    color: black;
+  }
+  ion-button {
+    --background: rgb(217, 217, 217);
+    --color: black;
+  }
+  
+  ion-button .bigbutton {
+    width: 155px;
+  
+  }
+  
+  ion-row .blackcolor {
+    color: black;
+  }
+  
+  ion-button .smallbutton {
+    width: 10px;
+  }
+  ion-input {
+    background-color:white;
+  }
