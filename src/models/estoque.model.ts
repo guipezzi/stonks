@@ -6,7 +6,7 @@ interface IEstoque {
   quantidade: number;
   precoUnit: number;
   estoqueMin: number;
-  imageUrl: string; // Adicionar a propriedade imageUrl
+  imageUrl: string;
 }
 
 function createIEstoque(): IEstoque {
@@ -18,7 +18,7 @@ function createIEstoque(): IEstoque {
     quantidade: 0,
     precoUnit: 0,
     estoqueMin: 0,
-    imageUrl: '', // Inicializar a propriedade imageUrl
+    imageUrl: '',
   };
 }
 

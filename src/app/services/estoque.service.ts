@@ -14,7 +14,7 @@ import {
   docSnapshots,
   updateDoc,
 } from '@angular/fire/firestore';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -28,20 +28,13 @@ export class EstoqueService {
   public async add(novoItem: IEstoque): Promise<IEstoque> {
     const docRef = await addDoc(
       collection(this.firestore, 'Itens em Estoque'),
-      {
-        nome: novoItem.nome,
-        marca: novoItem.marca,
-        tipo: novoItem.tipo,
-        quantidade: novoItem.quantidade,
-        precoUnit: novoItem.precoUnit,
-        estoqueMin: novoItem.estoqueMin,
-      }
+      novoItem
     );
 
     console.log('Documento salvo com o ID:', docRef.id);
-    console.log('Salvar --> Novo Item', novoItem);
+    novoItem.id = docRef.id; // Atribuir o ID gerado ao item
     this.itens.push(novoItem);
-    return this.itens[this.itens.length - 1];
+    return novoItem;
   }
 
   public getAll(): Observable<IEstoque[]> {
@@ -66,9 +59,7 @@ export class EstoqueService {
   }
 
   public getIndex(id: string): number {
-    const index = this.itens.findIndex((obj) => {
-      return obj.id === id;
-    });
+    const index = this.itens.findIndex((obj) => obj.id === id);
     return index;
   }
 
@@ -77,7 +68,7 @@ export class EstoqueService {
     updateDoc(itemRef, { ...item });
   }
 
-  //Métodos do Update
+  // Métodos do Update
   getUpdate(id: string): Observable<IEstoque> {
     const document = doc(this.firestore, 'Itens em Estoque', id);
     return docSnapshots(document).pipe(
@@ -91,7 +82,7 @@ export class EstoqueService {
 
   public updateItem(estoque: IEstoque): IEstoque {
     const index = this.getIndex(estoque.id);
-    const document = doc(this.firestore, 'Itens em Estoque', estoque?.id);
+    const document = doc(this.firestore, 'Itens em Estoque', estoque.id);
     const { id, ...data } = estoque;
     setDoc(document, data);
     if (index >= 0) {
