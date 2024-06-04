@@ -76,4 +76,29 @@ export class EstoqueService {
     const itemRef = this.get(item.id);
     updateDoc(itemRef, { ...item });
   }
+
+  //Métodos do Update
+  getUpdate(id: string): Observable<IEstoque> {
+    const document = doc(this.firestore, 'Itens em Estoque', id);
+    return docSnapshots(document).pipe(
+      map((doc) => {
+        const id = doc.id;
+        const data = doc.data();
+        return { id, ...data } as IEstoque;
+      })
+    );
+  }
+
+  public updateItem(estoque: IEstoque): IEstoque {
+    const index = this.getIndex(estoque.id);
+    const document = doc(this.firestore, 'Itens em Estoque', estoque?.id);
+    const { id, ...data } = estoque;
+    setDoc(document, data);
+    if (index >= 0) {
+      this.itens[index] = estoque;
+      return this.itens[index];
+    } else {
+      return createIEstoque();
+    }
+  }
 }

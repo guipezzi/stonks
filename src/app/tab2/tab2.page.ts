@@ -3,6 +3,17 @@ import { NavController } from '@ionic/angular';
 
 import { EstoqueService } from '../services/estoque.service';
 import { IEstoque, createIEstoque } from 'src/models/estoque.model';
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage';
+
+const storage = getStorage();
+const metadata = {
+  contentType: 'image/jpeg',
+};
 
 @Component({
   selector: 'app-item-novo',
@@ -33,7 +44,5 @@ export class Tab2Page {
       );
     }
   }
-  public uparImagem() {
-    this.navCtrl.navigateRoot('upload-image');
-  }
+  public uparImagem() {}
 }
