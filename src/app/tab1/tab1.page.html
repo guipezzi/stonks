@@ -13,7 +13,7 @@
   <ion-list>
     <ion-item *ngFor="let item of itensEstoque">
       <ion-thumbnail slot="start">
-        <img [src]="item.imageUrl || 'https://ionicframework.com/docs/img/demos/thumbnail.svg'" alt="Item image" />
+        <img [src]="item.imageUrl || 'https://ionicframework.com/docs/img/demos/thumbnail.svg' "alt="Item image" />
       </ion-thumbnail>
       <ion-label>
         {{item?.nome}} - <b> ID: {{item?.id}} </b>

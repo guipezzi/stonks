@@ -46,25 +46,18 @@ export class Tab2Page {
 
   public async uparImagem() {
     try {
-      // Abrir o file picker
       const file = await this.pickFile();
-
       if (file) {
-        // Fazer upload da imagem
         const storageRef = ref(getStorage(), `images/${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
         uploadTask.on(
           'state_changed',
-          (snapshot) => {
-            // Progress callback...
-          },
+          (snapshot) => {},
           (error) => {
-            // Error callback...
             console.error('Upload failed', error);
           },
           () => {
-            // Complete callback...
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log('File available at', downloadURL);
               this.estoque.imageUrl = downloadURL;

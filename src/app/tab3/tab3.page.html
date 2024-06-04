@@ -11,51 +11,36 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item color="medium" text-wrap>
+  <ion-item color="medium" text-wrap *ngIf="(totalItensEstoque$ | async) as totalItens">
     <ion-grid>
-      <ion-row> <b class="center"> Estátisticas Mensais: </b> </ion-row>
+      <ion-row> <b class="center"> Estatísticas Mensais: </b> </ion-row>
       <p> </p>
       <ion-row> <img alt="stonks" src="..\..\assets\pngs\stonks.png" align="center" height='130' width='260'> </ion-row>
       <p> </p>
       <ion-row> <ion-label class="dark"> Total de Itens em Estoque: </ion-label>
-        <b> &nbsp; 255 </b>
+        <b> &nbsp; {{ totalItens }} </b>
       </ion-row>
       <p></p>
-      <ion-row> <ion-label class="dark"> Total de Tipos de Items: </ion-label>
-        <b> &nbsp; 255 </b>
+      <ion-row> <ion-label class="dark"> Total de Tipos de Itens: </ion-label>
+        <b> &nbsp; {{ totalTiposItens$ | async }} </b>
       </ion-row>
       <p></p>
       <ion-row> <ion-label class="dark"> Média de Preço dos Produtos: </ion-label>
-        <b> &nbsp; 54,70 R$ </b>
+        <b> &nbsp; {{ mediaPrecoProdutos$ | async | number: '1.2-2' }} R$ </b>
       </ion-row>
       <p></p>
       <p></p>
       <p></p>
       <ion-label class="dark" align="center"> Produtos que Precisam de Reposição: </ion-label>
       <p> </p>
-      <ion-item text-wrap>
+      <ion-item text-wrap *ngIf="(itensReposicao$ | async) as itensReposicao">
         <ion-grid>
-          <ion-row> <ion-label> Urso de Pelúcia Marrom - Fisher Price: </ion-label>
-            <i color="medium"> &nbsp; 8 Unidades </i>
-          </ion-row>
-          <p></p>
-          <ion-row> <ion-label> Perfume de Grama - Jequiti: </ion-label>
-            <i color="medium"> &nbsp; 5 Unidades </i>
-          </ion-row>
-          <p></p>
-          <ion-row> <ion-label> Coleira de Cachorro Preta - ZeeDog: </ion-label>
-            <i color="medium"> &nbsp; 2 Unidades </i>
+          <ion-row *ngFor="let item of itensReposicao">
+            <ion-label> {{ item.nome }} - {{ item.marca }}: </ion-label>
+            <i color="medium"> &nbsp; {{ item.estoqueMin - item.quantidade }} Unidades </i>
           </ion-row>
         </ion-grid>
       </ion-item>
-    <ion-row> 
-      <ion-button>
-        <ion-icon slot="icon-only"name="arrow-back-circle"></ion-icon>
-      </ion-button>
-      <ion-button>
-        <ion-icon slot="icon-only"name="print"></ion-icon>
-      </ion-button>
-    </ion-row>
     </ion-grid>
   </ion-item>
 </ion-content>
