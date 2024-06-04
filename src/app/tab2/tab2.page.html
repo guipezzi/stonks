@@ -3,12 +3,13 @@
     <ion-thumbnail slot="start">
       <img alt="tophat" src="..\..\assets\icon\stonks-icon.png">
     </ion-thumbnail>
-    <ion-title align="center"> Sistema de Controle de Estoque </ion-title>
+    <ion-title align="center">Sistema de Controle de Estoque</ion-title>
     <p>
-      <ion-title align="center"> Stonks </ion-title>
+      <ion-title align="center">Stonks</ion-title>
     </p>
   </ion-toolbar>
 </ion-header>
+
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
@@ -18,39 +19,44 @@
         <ion-item class="greybg">
           <ion-grid [fixed]="true">
             <ion-row>
-              <ion-col size="6" size-md="4" size-lg="2"> <img alt="img" src=""
-                  align="center" height='120' width='110'> </ion-col>
-              <ion-col size="6" size-md="4" size-lg="2"> <ion-item class="whitebg">
+              <ion-col size="6" size-md="4" size-lg="2">
+                <img [src]="estoque.imageUrl || ''" alt="img" align="center" height='120' width='110'>
+              </ion-col>
+              <ion-col size="6" size-md="4" size-lg="2">
+                <ion-item class="whitebg">
                   <b> Insira os dados do produto abaixo: </b>
                   <p> </p>
-                </ion-item> </ion-col>
+                </ion-item>
+              </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col> <ion-button class="bigbutton" (click)="uparImagem()" >Alterar Icone</ion-button> </ion-col>
+              <ion-col>
+                <ion-button class="bigbutton" (click)="uparImagem()">Alterar Icone</ion-button>
+              </ion-col>
             </ion-row>
             <p> </p>
             <ion-row class="blackcolor">
-              <ion-input [(ngModel)]="estoque.nome" label="Nome: "> </ion-input>
+              <ion-input [(ngModel)]="estoque.nome" label="Nome: "></ion-input>
             </ion-row>
             <p> </p>
             <ion-row class="blackcolor">
-              <ion-input [(ngModel)]="estoque.marca" label="Marca: "> </ion-input>
+              <ion-input [(ngModel)]="estoque.marca" label="Marca: "></ion-input>
             </ion-row>
             <p> </p>
             <ion-row class="blackcolor">
-              <ion-input [(ngModel)]="estoque.tipo" label="Tipo: "> </ion-input>
+              <ion-input [(ngModel)]="estoque.tipo" label="Tipo: "></ion-input>
             </ion-row>
             <p> </p>
             <ion-row class="blackcolor">
-              <ion-input [(ngModel)]="estoque.quantidade" type="number" label="Quantidade: "> </ion-input>
+              <ion-input [(ngModel)]="estoque.quantidade" type="number" label="Quantidade: "></ion-input>
             </ion-row>
             <p> </p>
             <ion-row class="blackcolor">
-              <ion-input [(ngModel)]="estoque.precoUnit" type="number" label="Preço: "> </ion-input>
+              <ion-input [(ngModel)]="estoque.precoUnit" type="number" label="Preço: "></ion-input>
             </ion-row>
             <p> </p>
             <ion-row class="blackcolor">
-              <ion-input [(ngModel)]="estoque.estoqueMin" type="number" label="Estoque Mínimo: "> </ion-input>
+              <ion-input [(ngModel)]="estoque.estoqueMin" type="number" label="Estoque Mínimo: "></ion-input>
             </ion-row>
             <p> </p>
             <ion-row>

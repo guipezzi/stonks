@@ -6,8 +6,10 @@ interface IEstoque {
   quantidade: number;
   precoUnit: number;
   estoqueMin: number;
+  imageUrl: string; // Adicionar a propriedade imageUrl
 }
-function createIEstoque() {
+
+function createIEstoque(): IEstoque {
   return {
     id: '',
     nome: '',
@@ -16,6 +18,8 @@ function createIEstoque() {
     quantidade: 0,
     precoUnit: 0,
     estoqueMin: 0,
+    imageUrl: '', // Inicializar a propriedade imageUrl
   };
 }
+
 export { IEstoque, createIEstoque };

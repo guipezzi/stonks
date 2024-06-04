@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="fancy"> 
+  <ion-toolbar class="fancy">
     <ion-thumbnail slot="start">
       <img alt="tophat" src="..\..\assets\icon\stonks-icon.png" align="center">
     </ion-thumbnail>
@@ -13,7 +13,7 @@
   <ion-list>
     <ion-item *ngFor="let item of itensEstoque">
       <ion-thumbnail slot="start">
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+        <img [src]="item.imageUrl || 'https://ionicframework.com/docs/img/demos/thumbnail.svg'" alt="Item image" />
       </ion-thumbnail>
       <ion-label>
         {{item?.nome}} - <b> ID: {{item?.id}} </b>
@@ -22,21 +22,20 @@
         <p> <b> Quantidade: </b> {{item?.quantidade}} </p>
         <p> <b> Preço Unitário: </b> {{item?.precoUnit}} </p>
         <p> <b> Estoque Mínimo: </b> {{item?.estoqueMin}} </p>
-            <ion-button size="small" color="medium" (click)="deletar(item.id)">
-              <ion-icon slot="icon-only" md="trash"></ion-icon>
-            </ion-button>
-            <ion-button size="small" color="medium" [routerLink]="['/update-stock', item.id]"
-            routerDirection="forward">
-              <ion-icon slot="icon-only" md="create-outline"></ion-icon>
-            </ion-button>
-            <ion-button size="small" color="medium" (click)="incrementarQuantidade(item.id)">
-              <ion-icon slot="icon-only" md="add"></ion-icon>
-            </ion-button>
-            <ion-button size="small" color="medium" (click)="decrementarQuantidade(item.id)">
-              <ion-icon slot="icon-only" md="remove"></ion-icon>
-            </ion-button>
+        <ion-button size="small" color="medium" (click)="deletar(item.id)">
+          <ion-icon slot="icon-only" md="trash"></ion-icon>
+        </ion-button>
+        <ion-button size="small" color="medium" [routerLink]="['/update-stock', item.id]"
+        routerDirection="forward">
+          <ion-icon slot="icon-only" md="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button size="small" color="medium" (click)="incrementarQuantidade(item.id)">
+          <ion-icon slot="icon-only" md="add"></ion-icon>
+        </ion-button>
+        <ion-button size="small" color="medium" (click)="decrementarQuantidade(item.id)">
+          <ion-icon slot="icon-only" md="remove"></ion-icon>
+        </ion-button>
       </ion-label>
     </ion-item>
   </ion-list>
-
 </ion-content>
