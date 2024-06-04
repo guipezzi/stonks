@@ -8,7 +8,7 @@ const routes: Routes = [
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
   {
-    path: 'update-stock',
+    path: 'update-stock/:id',
     loadChildren: () =>
       import('./update-stock/update-stock.module').then(
         (m) => m.UpdateStockPageModule

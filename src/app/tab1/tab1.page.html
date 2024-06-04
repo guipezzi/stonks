@@ -25,7 +25,8 @@
             <ion-button size="small" color="medium" (click)="deletar(item.id)">
               <ion-icon slot="icon-only" md="trash"></ion-icon>
             </ion-button>
-            <ion-button size="small" color="medium" (click)="atualizar(item.id)">
+            <ion-button size="small" color="medium" [routerLink]="['/update-stock', item.id]"
+            routerDirection="forward">
               <ion-icon slot="icon-only" md="create-outline"></ion-icon>
             </ion-button>
             <ion-button size="small" color="medium" (click)="incrementarQuantidade(item.id)">
