@@ -81,19 +81,8 @@ export class UpdateStockPage implements OnInit {
   }
 
   public atualizar() {
-    if (
-      this.estoque.nome &&
-      this.estoque.marca &&
-      this.estoque.tipo &&
-      this.estoque.quantidade &&
-      this.estoque.precoUnit &&
-      this.estoque.estoqueMin
-    ) {
-      console.log('Salvar', this.estoque);
-      this.EstoqueServ.updateItem(this.estoque);
-      this.navCtrl.navigateRoot('/tabs/tab1');
-    } else {
-      console.log('Não é possível salvar uma item vazio');
-    }
+    console.log('Salvar', this.estoque);
+    this.EstoqueServ.updateItem(this.estoque);
+    this.navCtrl.navigateRoot('/tabs/tab1');
   }
 }
