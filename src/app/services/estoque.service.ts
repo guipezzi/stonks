@@ -73,16 +73,18 @@ export class EstoqueService {
     const document = doc(this.firestore, 'Itens em Estoque', id);
     return docSnapshots(document).pipe(
       map((doc) => {
-        const id = doc.id;
         const data = doc.data();
-        return { id, ...data } as IEstoque;
+        const item = { ...data } as IEstoque;
+        item.id = id;
+        return item;
       })
     );
   }
 
   public updateItem(estoque: IEstoque): IEstoque {
+    console.log('Update Item', estoque);
     const index = this.getIndex(estoque.id);
-    const document = doc(this.firestore, 'Itens em Estoque', estoque.id);
+    const document = this.get(estoque.id);
     const { id, ...data } = estoque;
     setDoc(document, data);
     if (index >= 0) {

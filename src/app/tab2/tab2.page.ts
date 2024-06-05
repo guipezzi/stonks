@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { EstoqueService } from '../services/estoque.service';
 import { IEstoque, createIEstoque } from 'src/models/estoque.model';
@@ -8,9 +8,6 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
-import { Capacitor, Plugins } from '@capacitor/core';
-
-const { Filesystem } = Plugins;
 
 @Component({
   selector: 'app-item-novo',
@@ -19,11 +16,16 @@ const { Filesystem } = Plugins;
 })
 export class Tab2Page {
   public estoque: IEstoque = createIEstoque();
+  public localUrl: string;
 
   constructor(
     private EstoqueServ: EstoqueService,
     private navCtrl: NavController
   ) {}
+
+  ionViewWillEnter() {
+    this.estoque = createIEstoque();
+  }
 
   public salvar() {
     if (
@@ -47,6 +49,7 @@ export class Tab2Page {
   public async uparImagem() {
     try {
       const file = await this.pickFile();
+      this.localUrl = URL.createObjectURL(file);
       if (file) {
         const storageRef = ref(getStorage(), `images/${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);

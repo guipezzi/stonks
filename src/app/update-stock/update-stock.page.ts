@@ -3,16 +3,13 @@ import { NavController } from '@ionic/angular';
 import { EstoqueService } from '../services/estoque.service';
 import { IEstoque, createIEstoque } from 'src/models/estoque.model';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom, lastValueFrom } from 'rxjs';
 import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
-import { Capacitor, Plugins } from '@capacitor/core';
-
-const { Filesystem } = Plugins;
 
 @Component({
   selector: 'app-update-stock',
@@ -21,6 +18,7 @@ const { Filesystem } = Plugins;
 })
 export class UpdateStockPage implements OnInit {
   public estoque: IEstoque = createIEstoque();
+  public localUrl: string;
 
   constructor(
     private rotaAtiva: ActivatedRoute,
@@ -31,15 +29,16 @@ export class UpdateStockPage implements OnInit {
   ngOnInit(): void {
     const id: string = this.rotaAtiva.snapshot.paramMap.get('id') || '0';
     console.log(id);
-    this.EstoqueServ.getUpdate(id).subscribe((estoque) => {
-      this.estoque = estoque;
+    firstValueFrom(this.EstoqueServ.getUpdate(id)).then((item) => {
+      this.estoque = item;
+      console.log('Estoque Edit', this.estoque);
     });
-    console.log('Estoque Edit', this.estoque);
   }
 
   public async uparImagem() {
     try {
       const file = await this.pickFile();
+      this.localUrl = URL.createObjectURL(file);
       if (file) {
         const storageRef = ref(getStorage(), `images/${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
